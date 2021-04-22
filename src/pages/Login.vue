@@ -88,19 +88,20 @@ export default {
         border: 0;
         padding: 15px;
         border-radius: 5px;
-        background: #6202ee;
+        background: #02c9b5;
         color: #fff;
         font-weight: 500;
         font-size: 16px;
         cursor: pointer;
         transition: 800ms;
+        outline: 0;
         &:hover {
-          background: rgb(66, 0, 165);
+          background: #096e64;
         }
       }
     }
     &__cadastro {
-      border: 1px solid #fff;
+      border: 1px solid #02c9b5;
       text-decoration: none;
       color: #fff;
       padding: 15px;
@@ -109,9 +110,10 @@ export default {
       text-align: center;
       font-size: 16px;
       transition: 800ms;
+      outline: 0;
+
       &:hover {
-        background: #fff;
-        color: #000;
+        background: #096e64;
       }
     }
   }

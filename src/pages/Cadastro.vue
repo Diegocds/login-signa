@@ -95,21 +95,20 @@ export default {
       &__button {
         outline: 0;
         border: 0;
-        color: #000;
-        background: #fff;
+        color: #ffffff;
+        background: #02c9b5;
         padding: 10px;
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
         transition: 800ms;
         &:hover {
-          background: #000;
-          color: #fff;
+          background: #096e64;
         }
       }
     }
     &__voltar {
-      border: 1px solid #fff;
+      border: 1px solid #02c9b5;
       text-decoration: none;
       padding: 10px;
       border-radius: 5px;
@@ -118,9 +117,9 @@ export default {
       font-size: 16px;
       color: #fff;
       transition: 800ms;
+      outline: 0;
       &:hover {
-        color: #000;
-        background: #fff;
+        background: #096e64;
       }
     }
   }

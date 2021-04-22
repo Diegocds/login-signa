@@ -32,10 +32,10 @@
           </td>
           <td>
             <a hfre="#">
-              <img src="@/assets/editar.png" />
+              <img src="@/assets/editar-imagem.svg" />
             </a>
             <a hfre="#">
-              <img src="@/assets/delete.png" />
+              <img src="@/assets/lixeira.svg" />
             </a>
           </td>
         </tr>
@@ -64,7 +64,7 @@
             v-model="nome"
           />
           <input
-            type="text"
+            type="email"
             placeholder="E-mail"
             class="modal__form__input"
             v-model="email"
@@ -111,12 +111,21 @@ export default {
   methods: {
     async addAluno(e) {
       e.preventDefault();
-      const { data } = await axios.post("http://localhost:3000/alunos", {
-        nome: this.nome,
-        email: this.email,
-        ra: this.ra,
-        turma: this.turma,
-      });
+      if (
+        this.nome === "" ||
+        this.email === "" ||
+        this.ra === "" ||
+        this.turma === ""
+      ) {
+        alert("Preencha todos os campos");
+      } else {
+        const { data } = await axios.post("http://localhost:3000/alunos", {
+          nome: this.nome,
+          email: this.email,
+          ra: this.ra,
+          turma: this.turma,
+        });
+      }
       this.carregarAlunos();
       this.nome = "";
       this.email = "";
@@ -177,6 +186,9 @@ export default {
           padding: 10px 0;
           color: #626262;
           text-align: center;
+          a {
+            margin: 0 10px;
+          }
         }
       }
     }
@@ -196,6 +208,7 @@ export default {
       margin-right: 10px;
       transition: 800ms;
       cursor: pointer;
+      outline: 0;
       &:hover {
         background: #096e64;
         color: #fff;
@@ -209,6 +222,7 @@ export default {
       width: 182px;
       transition: 800ms;
       cursor: pointer;
+      outline: 0;
       &:hover {
         background: #096e64;
       }

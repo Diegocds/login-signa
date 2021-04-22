@@ -20,8 +20,9 @@
   &__content {
     width: 40%;
     border-radius: 5px;
-    height: 38%;
+    height: 30%;
     background: #303030;
+    box-shadow: 0 0 1em #02c9b5;
   }
 }
 </style>
