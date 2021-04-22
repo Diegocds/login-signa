@@ -5,7 +5,7 @@
 
       <h1 class="container__cadastro__titulo">Novo cadastro</h1>
 
-      <form class="container__cadastro__form">
+      <form class="container__cadastro__form" @submit.prevent="save">
         <input type="text" placeholder="Digite seu nome" v-model="nome" />
         <!-- {{ nome }} -->
         <input
@@ -20,7 +20,9 @@
           placeholder="Confirme sua senha"
           v-model="confirmarSenha"
         />
-        <button class="container__cadastro__form__button">Cadastrar</button>
+        <button type="submit" class="container__cadastro__form__button">
+          Cadastrar
+        </button>
       </form>
       <router-link to="/login" class="container__cadastro__voltar"
         >Voltar</router-link
@@ -30,6 +32,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -39,6 +42,22 @@ export default {
       senha: "",
       confirmarSenha: "",
     };
+  },
+  methods: {
+    async save() {
+      if (this.senha === this.confirmarSenha) {
+        const data = await axios.post("http://localhost:3000/usuarios", {
+          nome: this.nome,
+          sobrenome: this.sobrenome,
+          email: this.email,
+          senha: this.senha,
+        });
+        alert("usuario cadastrado");
+        this.$router.push("/login");
+      } else {
+        alert("Senhas não são iguais");
+      }
+    },
   },
 };
 </script>

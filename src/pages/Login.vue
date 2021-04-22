@@ -3,18 +3,22 @@
     <div class="container__login">
       <img src="@/assets/logo.svg" class="container__login__img" />
 
-      <form class="container__login__form">
+      <form class="container__login__form" @submit.prevent="submit">
         <input
           type="email"
           placeholder="Digite seu e-mail"
           class="container__login__form__input"
+          v-model="email"
         />
         <input
           type="password"
           placeholder="Digite sua senha"
           class="container__login__form__input"
+          v-model="senha"
         />
-        <button class="container__login__form__button">Entrar</button>
+        <button type="submit" class="container__login__form__button">
+          Entrar
+        </button>
       </form>
 
       <router-link to="/cadastro" class="container__login__cadastro"
@@ -23,6 +27,34 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      email: "",
+      senha: "",
+    };
+  },
+  methods: {
+    async submit() {
+      const { data } = await axios.get("http://localhost:3000/usuarios", {
+        params: {
+          email: this.email,
+          senha: this.senha,
+        },
+      });
+      if (data.length > 0) {
+        alert("logando..");
+        this.$router.push("/");
+      } else {
+        alert("Usuário ou senha incorretos");
+      }
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .container {
