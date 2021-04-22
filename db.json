@@ -14,5 +14,49 @@
       "senha": "123",
       "id": 2
     }
+  ],
+  "alunos": [
+    {
+      "nome": "Diego",
+      "email": "Diego@diego",
+      "ra": "456985",
+      "turma": "ADS ",
+      "id": 1
+    },
+    {
+      "nome": "Amanda",
+      "email": "amanda@signa.com.br",
+      "ra": "789586",
+      "turma": "ADS 3A",
+      "id": 2
+    },
+    {
+      "nome": "",
+      "email": "",
+      "ra": "",
+      "turma": "",
+      "id": 3
+    },
+    {
+      "nome": "",
+      "email": "",
+      "ra": "",
+      "turma": "",
+      "id": 4
+    },
+    {
+      "nome": "",
+      "email": "",
+      "ra": "",
+      "turma": "",
+      "id": 5
+    },
+    {
+      "nome": "",
+      "email": "",
+      "ra": "",
+      "turma": "",
+      "id": 6
+    }
   ]
 }

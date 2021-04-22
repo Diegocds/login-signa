@@ -17,17 +17,18 @@
           <th>Ações</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr>
-          <td>Amanda</td>
+        <tr v-for="aluno in alunos" :key="aluno.id">
+          <td>{{ aluno.nome }}</td>
           <td>
-            amanda@angis.com.br
+            {{ aluno.email }}
           </td>
           <td>
-            190853
+            {{ aluno.ra }}
           </td>
           <td>
-            ADS3A
+            {{ aluno.turma }}
           </td>
           <td>
             <a hfre="#">
@@ -43,12 +44,92 @@
 
     <div class="home__buttons content">
       <button class="home__buttons__voltar">Voltar</button>
-      <button class="home__buttons__adicionar">Novo aluno</button>
+      <button @click="modal = true" class="home__buttons__adicionar">
+        Novo aluno
+      </button>
     </div>
+    <Modal v-if="modal">
+      <div class="modal">
+        <div class="modal__header">
+          <h3 class="modal__header__title">Cadastrar novo aluno</h3>
+          <a @click="modal = false" href="#">
+            <img src="@/assets/Vector.svg" alt="" />
+          </a>
+        </div>
+        <form class="modal__form">
+          <input
+            type="text"
+            placeholder="Nome"
+            class="modal__form__input"
+            v-model="nome"
+          />
+          <input
+            type="text"
+            placeholder="E-mail"
+            class="modal__form__input"
+            v-model="email"
+          />
+          <input
+            type="text"
+            placeholder="RA"
+            class="modal__form__input"
+            v-model="ra"
+          />
+          <input
+            type="text"
+            placeholder="Turma"
+            class="modal__form__input"
+            v-model="turma"
+          />
+          <button @click="addAluno" class="modal__form__btn">Adicionar</button>
+        </form>
+      </div>
+    </Modal>
   </div>
 </template>
 
-<script></script>
+<script>
+import axios from "axios";
+import Modal from "@/components/Modal";
+export default {
+  data() {
+    return {
+      nome: "",
+      email: "",
+      ra: "",
+      turma: "",
+      modal: false,
+      alunos: [],
+    };
+  },
+  components: {
+    Modal,
+  },
+  mounted() {
+    this.carregarAlunos();
+  },
+  methods: {
+    async addAluno(e) {
+      e.preventDefault();
+      const { data } = await axios.post("http://localhost:3000/alunos", {
+        nome: this.nome,
+        email: this.email,
+        ra: this.ra,
+        turma: this.turma,
+      });
+      this.carregarAlunos();
+      this.nome = "";
+      this.email = "";
+      this.ra = "";
+      this.turma = "";
+    },
+    async carregarAlunos() {
+      const { data } = await axios.get("http://localhost:3000/alunos");
+      this.alunos = data;
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .content {
@@ -116,20 +197,68 @@
       transition: 800ms;
       cursor: pointer;
       &:hover {
-        background: #fff;
-        color: #000;
+        background: #096e64;
+        color: #fff;
       }
     }
     &__adicionar {
       border: 0;
-      background: #6202ee;
+      background: #02c9b5;
       border-radius: 5px;
       color: #fff;
       width: 182px;
       transition: 800ms;
       cursor: pointer;
       &:hover {
-        background: rgb(69, 15, 150);
+        background: #096e64;
+      }
+    }
+  }
+  .modal {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 100%;
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      &__title {
+        color: #02c9b5;
+      }
+    }
+    &__form {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10px;
+      &__input {
+        outline: 0;
+        padding: 10px;
+        width: calc(50% - 5px);
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 0;
+        &:nth-child(1) {
+          margin-right: 5px;
+        }
+        &:nth-child(3) {
+          margin-right: 5px;
+        }
+      }
+      &__btn {
+        width: 116px;
+        padding: 10px;
+        border: 0;
+        border-radius: 5px;
+        background: #02c9b5;
+        font-weight: 500;
+        color: #fff;
+        cursor: pointer;
+        outline: 0;
+        transition: 800ms;
+        &:hover {
+          background: #096e64;
+        }
       }
     }
   }
