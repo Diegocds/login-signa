@@ -31,10 +31,10 @@
             {{ aluno.turma }}
           </td>
           <td>
-            <a hfre="#">
+            <a @click="modalEditar = true" hfre="#" >
               <img src="@/assets/editar-imagem.svg" />
             </a>
-            <a hfre="#">
+            <a @click="deletarAluno($event, aluno.id)" hfre="#">
               <img src="@/assets/lixeira.svg" />
             </a>
           </td>
@@ -43,7 +43,7 @@
     </table>
 
     <div class="home__buttons content">
-      <button class="home__buttons__voltar">Voltar</button>
+      <button class="home__buttons__voltar" >Voltar</button>
       <button @click="modal = true" class="home__buttons__adicionar">
         Novo aluno
       </button>
@@ -85,6 +85,46 @@
         </form>
       </div>
     </Modal>
+
+    <Modal v-if="modalEditar">
+      <div class="modal">
+        <div class="modal__header">
+          <h3 class="modal__header__title">Cadastrar novo livro</h3>
+          <a href="#" @click="modalEditar = false">
+            <img src="@/assets/Vector.svg" />
+          </a>
+        </div>
+        <form @submit="editarAluno" class="modal__form">
+          <input
+            type="text"
+            placeholder="Nome do aluno"
+            v-model="editar.nome"
+            class="modal__form__input"
+          />
+          <input
+            type="text"
+            placeholder="E-mail do aluno"
+            v-model="editar.email"
+            class="modal__form__input"
+          />
+          <input
+            type="text"
+            placeholder="RA do aluno"
+            v-model="editar.ra"
+            class="modal__form__input"
+          />
+          <input
+            type="text"
+            placeholder="Turma do aluno"
+            v-model="editar.turma"
+            class="modal__form__input"
+          />
+
+          <button class="modal__form__btn-voltar">Voltar</button>
+          <button class="modal__form__btn">Editar</button>
+        </form>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -99,7 +139,15 @@ export default {
       ra: "",
       turma: "",
       modal: false,
+      modalEditar: false,
       alunos: [],
+       editar: {
+        id: "",
+        nome: "",
+        email: "",
+        ra: "",
+        turma: "",
+      },
     };
   },
   components: {
@@ -125,6 +173,7 @@ export default {
           ra: this.ra,
           turma: this.turma,
         });
+      this.modal = false
       }
       this.carregarAlunos();
       this.nome = "";
@@ -135,6 +184,28 @@ export default {
     async carregarAlunos() {
       const { data } = await axios.get("http://localhost:3000/alunos");
       this.alunos = data;
+    },
+  async deletarAluno(e, id) {
+      e.preventDefault();
+
+      const { data } = await axios.delete(
+        `http://localhost:3000/alunos/${id}`
+      );
+
+      this.carregarAlunos();
+    },
+    async editarAluno(e) {
+      e.preventDefault();
+      const { data } = await axios.put(
+        `http://localhost:3000/biblioteca/${this.editar.id}`,
+        {
+          nome: this.editar.nome,
+          email: this.editar.email,
+          ra: this.editar.ra,
+          turma: this.editar.turma,
+        }
+      );
+      this.carregarAlunos();
     },
   },
 };
@@ -188,6 +259,7 @@ export default {
           text-align: center;
           a {
             margin: 0 10px;
+            cursor: pointer;
           }
         }
       }
@@ -274,6 +346,22 @@ export default {
           background: #096e64;
         }
       }
+      &__btn-voltar {
+      border: 1px solid #fff;
+      border-radius: 5px;
+      outline: 0;
+      background: transparent;
+      color: #fff;
+      padding: 10px;
+      width: 116px;
+      margin-right: 10px;
+      transition: 800ms;
+      cursor: pointer;
+      &:hover {
+        background: #096e64;
+        color: #fff;
+      }
+    }
     }
   }
 }

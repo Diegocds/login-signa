@@ -22,27 +22,55 @@
       "id": 3
     },
     {
-      "nome": "",
-      "sobrenome": "",
-      "email": "",
-      "senha": "",
+      "nome": "Dean ",
+      "sobrenome": "Winchester",
+      "email": "dean@supernatural.com",
+      "senha": "123",
       "id": 4
     }
   ],
   "alunos": [
     {
-      "nome": "Diego",
-      "email": "Diego@diego",
-      "ra": "456985",
-      "turma": "ADS ",
+      "nome": "Diego Carlos",
+      "email": "diegocds1990@gmail.com",
+      "ra": "2536549",
+      "turma": "ADS 3B",
       "id": 1
     },
     {
-      "nome": "Amanda",
-      "email": "amanda@signa.com.br",
-      "ra": "789586",
-      "turma": "ADS 3A",
+      "nome": "Dean Winchester",
+      "email": "dean@supernatural.com",
+      "ra": "9874582",
+      "turma": "Caçador 666",
       "id": 2
+    },
+    {
+      "nome": "Amanda Silva",
+      "email": "amanda@angis.com.br",
+      "ra": "556642514",
+      "turma": "ADS 3A",
+      "id": 3
+    },
+    {
+      "nome": "Jeferson",
+      "email": "jeferson@signainfo.com.br",
+      "ra": "6543258",
+      "turma": "ADS 3C",
+      "id": 4
+    },
+    {
+      "nome": "Daniela",
+      "email": "daniela@signainfo.com.br",
+      "ra": "65465165",
+      "turma": "ADS 3D",
+      "id": 5
+    },
+    {
+      "nome": "Lais Caroline",
+      "email": "lais@signainfo.com.br",
+      "ra": "6945659",
+      "turma": "ADS 3E",
+      "id": 6
     }
   ]
 }

@@ -24,7 +24,7 @@
           Cadastrar
         </button>
       </form>
-      <router-link to="/login" class="container__cadastro__voltar"
+      <router-link to="/" class="container__cadastro__voltar"
         >Voltar</router-link
       >
     </div>
@@ -53,7 +53,7 @@ export default {
           senha: this.senha,
         });
         alert("usuario cadastrado");
-        this.$router.push("/login");
+        this.$router.push("/");
       } else {
         alert("Senhas não são iguais");
       }

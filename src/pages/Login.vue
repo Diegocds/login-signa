@@ -46,8 +46,8 @@ export default {
         },
       });
       if (data.length > 0) {
-        alert("logando..");
-        this.$router.push("/");
+        // alert("logando..");
+        this.$router.push("/home");
       } else {
         alert("Usuário ou senha incorretos");
       }
@@ -72,7 +72,8 @@ export default {
     height: 100%;
     margin: 0 auto;
     &__img {
-      width: 140px;
+      width: 250px;
+      margin: 0 auto 50px;
     }
     &__form {
       display: flex;
