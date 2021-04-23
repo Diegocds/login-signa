@@ -2,7 +2,7 @@
   <div class="home">
     <div class="home__header content ">
       <img src="@/assets/logo.svg" />
-      <router-link to="/login" class="home__header__sair">Sair</router-link>
+      <router-link to="/" class="home__header__sair">Sair</router-link>
     </div>
 
     <h1 class="home__title content">Plataforma de alunos</h1>
@@ -31,10 +31,10 @@
             {{ aluno.turma }}
           </td>
           <td>
-            <a @click="modalEditar = true" hfre="#" >
+            <a @click="modalEditar = true, carregarInfo($event, aluno)" href="#" >
               <img src="@/assets/editar-imagem.svg" />
             </a>
-            <a @click="deletarAluno($event, aluno.id)" hfre="#">
+            <a @click="deletarAluno($event, aluno.id)" href="#" >
               <img src="@/assets/lixeira.svg" />
             </a>
           </td>
@@ -43,7 +43,7 @@
     </table>
 
     <div class="home__buttons content">
-      <button class="home__buttons__voltar" >Voltar</button>
+      <button @click="logout" class="home__buttons__voltar" >Voltar</button>
       <button @click="modal = true" class="home__buttons__adicionar">
         Novo aluno
       </button>
@@ -89,7 +89,7 @@
     <Modal v-if="modalEditar">
       <div class="modal">
         <div class="modal__header">
-          <h3 class="modal__header__title">Cadastrar novo livro</h3>
+          <h3 class="modal__header__title">Editar dados do aluno</h3>
           <a href="#" @click="modalEditar = false">
             <img src="@/assets/Vector.svg" />
           </a>
@@ -102,7 +102,7 @@
             class="modal__form__input"
           />
           <input
-            type="text"
+            type="email"
             placeholder="E-mail do aluno"
             v-model="editar.email"
             class="modal__form__input"
@@ -120,11 +120,12 @@
             class="modal__form__input"
           />
 
-          <button class="modal__form__btn-voltar">Voltar</button>
+          <button class="modal__form__btn-voltar"  @click="modalEditar = false">Voltar</button>
           <button class="modal__form__btn">Editar</button>
         </form>
       </div>
     </Modal>
+
   </div>
 </template>
 
@@ -141,13 +142,14 @@ export default {
       modal: false,
       modalEditar: false,
       alunos: [],
-       editar: {
-        id: "",
-        nome: "",
-        email: "",
-        ra: "",
-        turma: "",
-      },
+      editar: {
+        id: '',
+        nome: '',
+        email: '',
+        ra:'',
+        turma: ''
+      }  
+      
     };
   },
   components: {
@@ -157,6 +159,9 @@ export default {
     this.carregarAlunos();
   },
   methods: {
+    logout() {
+      this.$router.push({name: "Login" })
+    },
     async addAluno(e) {
       e.preventDefault();
       if (
@@ -185,7 +190,7 @@ export default {
       const { data } = await axios.get("http://localhost:3000/alunos");
       this.alunos = data;
     },
-  async deletarAluno(e, id) {
+    async deletarAluno(e, id) {
       e.preventDefault();
 
       const { data } = await axios.delete(
@@ -194,19 +199,27 @@ export default {
 
       this.carregarAlunos();
     },
-    async editarAluno(e) {
+
+    carregarInfo(e, aluno) {
       e.preventDefault();
-      const { data } = await axios.put(
-        `http://localhost:3000/biblioteca/${this.editar.id}`,
-        {
-          nome: this.editar.nome,
-          email: this.editar.email,
-          ra: this.editar.ra,
-          turma: this.editar.turma,
-        }
-      );
-      this.carregarAlunos();
+      this.editar.id = aluno.id;
+      this.editar.nome = aluno.nome;
+      this.editar.email = aluno.email;
+      this.editar.ra = aluno.ra;
+      this.editar.turma = aluno.turma;
     },
+    async editarAluno(e){
+      e.preventDefault();
+      const { data } = await axios.put(`http://localhost:3000/alunos/${this.editar.id}`, {
+        nome: this.editar.nome,
+        email: this.editar.email,
+        ra : this.editar.ra,
+        turma: this.editar.turma,
+      });
+      this.modalEditar = false;
+      this.carregarAlunos();
+    }
+
   },
 };
 </script>
